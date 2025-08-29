@@ -40,6 +40,9 @@ impl PricakovanaVrednost for Hipergeometrijska {
 
 impl Varianca for Hipergeometrijska {
     fn var(&self) -> f64 {
-        (((self.r * self.s) * (self.n - self.r) * (self.n - self.s)) as f64) / (self.n as f64)
+        let n = self.n as f64;
+        let s = self.s as f64;
+        let r = self.r as f64;
+        (r * s * (n - s) * (n - r)) / (n * n * (n - 1.0))
     }
 }

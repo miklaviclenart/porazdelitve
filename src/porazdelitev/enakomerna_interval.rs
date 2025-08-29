@@ -20,7 +20,7 @@ impl Porazdelitev for EnakomernaInterval {
             return 1.0;
         }
 
-        (x - self.a) / (self.a - self.b)
+        (x - self.a) / (self.b - self.a)
     }
 }
 
