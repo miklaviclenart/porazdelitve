@@ -4,18 +4,17 @@ pub(crate) fn factorial(n: u64) -> f64 {
     (1..=n).fold(1.0, |acc, x| acc * x as f64)
 }
 
-pub(crate) fn binomial(n: u64, k: u64) -> u64 {
+pub(crate) fn binomial(n: u64, k: u64) -> f64 {
     if k > n {
-        return 0;
+        return 0.0;
     }
-
-    // \binom{n}{k} = \binom{n}{n - k}
     let k = k.min(n - k);
     if k == 0 {
-        return 1;
+        return 1.0;
     }
-
-    ((n - k + 1)..=n).product::<u64>() / (1..=k).product::<u64>()
+    let num = ((n - k + 1)..=n).fold(1.0, |acc, x| acc * x as f64);
+    let denom = (1..=k).fold(1.0, |acc, x| acc * x as f64);
+    num / denom
 }
 
 pub(crate) fn sestej<F>(fun: F, k: u64) -> f64
@@ -73,17 +72,17 @@ mod tests {
 
     #[test]
     fn test_binomial_basic() {
-        assert_eq!(binomial(5, 0), 1); // n choose 0 = 1
-        assert_eq!(binomial(5, 1), 5);
-        assert_eq!(binomial(5, 2), 10);
-        assert_eq!(binomial(5, 5), 1);
+        assert_eq!(binomial(5, 0), 1.0); // n choose 0 = 1
+        assert_eq!(binomial(5, 1), 5.0);
+        assert_eq!(binomial(5, 2), 10.0);
+        assert_eq!(binomial(5, 5), 1.0);
     }
 
     #[test]
     fn test_binomial_edge_cases() {
-        assert_eq!(binomial(0, 0), 1);
-        assert_eq!(binomial(5, 6), 0); // k > n
-        assert_eq!(binomial(10, 0), 1);
-        assert_eq!(binomial(10, 10), 1);
+        assert_eq!(binomial(0, 0), 1.0);
+        assert_eq!(binomial(5, 6), 0.0); // k > n
+        assert_eq!(binomial(10, 0), 1.0);
+        assert_eq!(binomial(10, 10), 1.0);
     }
 }
