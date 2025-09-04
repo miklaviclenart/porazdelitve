@@ -274,6 +274,15 @@ impl MyApp {
 
 impl eframe::App for MyApp {
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
+        
+        egui::TopBottomPanel::top("top_panel").show(ctx, |ui| {
+            // The top panel is often a good place for a menu bar:
+
+            egui::MenuBar::new().ui(ui, |ui| {
+                egui::widgets::global_theme_preference_buttons(ui);
+            });
+        });
+        
         egui::CentralPanel::default().show(ctx, |ui| {
             ui.heading("Raziskovalec porazdelitev");
 
@@ -405,8 +414,7 @@ fn main() -> eframe::Result<()> {
     eframe::run_native(
         "VERJETNOST",
         options,
-        Box::new(|cc| {
-            cc.egui_ctx.set_visuals(egui::Visuals::light());
+        Box::new(|_cc| {
             Ok(Box::<MyApp>::default())
         }),
     )
